@@ -1,0 +1,68 @@
+diff --git a/node_modules/react-d3-tree/lib/Node/index.js b/node_modules/react-d3-tree/lib/Node/index.js
+index 0521bb2..d042840 100644
+--- a/node_modules/react-d3-tree/lib/Node/index.js
++++ b/node_modules/react-d3-tree/lib/Node/index.js
+@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ };
+ Object.defineProperty(exports, "__esModule", { value: true });
+ var react_1 = __importDefault(require("react"));
+-var d3_selection_1 = require("d3-selection");
++var d3_selection_1 = __importDefault("d3-selection");
+ var DefaultNodeElement_1 = __importDefault(require("./DefaultNodeElement"));
+ var Node = /** @class */ (function (_super) {
+     __extends(Node, _super);
+@@ -98,7 +98,7 @@ var Node = /** @class */ (function (_super) {
+         if (opacity === void 0) { opacity = 1; }
+         if (done === void 0) { done = function () { }; }
+         if (this.props.enableLegacyTransitions) {
+-            d3_selection_1.select(this.nodeRef)
++            d3_selection_1.default.select(this.nodeRef)
+                 // @ts-ignore
+                 .transition()
+                 .duration(transitionDuration)
+@@ -107,7 +107,7 @@ var Node = /** @class */ (function (_super) {
+                 .on('end', done);
+         }
+         else {
+-            d3_selection_1.select(this.nodeRef)
++            d3_selection_1.default.select(this.nodeRef)
+                 .attr('transform', transform)
+                 .style('opacity', opacity);
+             done();
+diff --git a/node_modules/react-d3-tree/lib/Tree/index.js b/node_modules/react-d3-tree/lib/Tree/index.js
+index f327993..f28aba4 100644
+--- a/node_modules/react-d3-tree/lib/Tree/index.js
++++ b/node_modules/react-d3-tree/lib/Tree/index.js
+@@ -29,8 +29,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ Object.defineProperty(exports, "__esModule", { value: true });
+ var react_1 = __importDefault(require("react"));
+ var d3_hierarchy_1 = require("d3-hierarchy");
+-var d3_selection_1 = require("d3-selection");
+-var d3_zoom_1 = require("d3-zoom");
++var d3_selection_1 = __importDefault("d3-selection");
++var d3_zoom_1 = __importDefault("d3-zoom");
+ var lite_1 = require("dequal/lite");
+ var clone_1 = __importDefault(require("clone"));
+ var uuid_1 = require("uuid");
+@@ -162,8 +162,8 @@ var Tree = /** @class */ (function (_super) {
+         _this.centerNode = function (hierarchyPointNode) {
+             var _a = _this.props, dimensions = _a.dimensions, orientation = _a.orientation, zoom = _a.zoom, centeringTransitionDuration = _a.centeringTransitionDuration;
+             if (dimensions) {
+-                var g = d3_selection_1.select("." + _this.gInstanceRef);
+-                var svg = d3_selection_1.select("." + _this.svgInstanceRef);
++                var g = d3_selection_1.default.select("." + _this.gInstanceRef);
++                var svg = d3_selection_1.default.select("." + _this.svgInstanceRef);
+                 var scale = _this.state.d3.scale;
+                 var x = void 0;
+                 var y = void 0;
+@@ -266,8 +266,8 @@ var Tree = /** @class */ (function (_super) {
+     Tree.prototype.bindZoomListener = function (props) {
+         var _this = this;
+         var zoomable = props.zoomable, scaleExtent = props.scaleExtent, translate = props.translate, zoom = props.zoom, onUpdate = props.onUpdate, hasInteractiveNodes = props.hasInteractiveNodes;
+-        var svg = d3_selection_1.select("." + this.svgInstanceRef);
+-        var g = d3_selection_1.select("." + this.gInstanceRef);
++        var svg = d3_selection_1.default.select("." + this.svgInstanceRef);
++        var g = d3_selection_1.default.select("." + this.gInstanceRef);
+         // Sets initial offset, so that first pan and zoom does not jump back to default [0,0] coords.
+         // @ts-ignore
+         svg.call(d3_zoom_1.zoom().transform, d3_zoom_1.zoomIdentity.translate(translate.x, translate.y).scale(zoom));

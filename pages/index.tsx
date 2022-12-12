@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-// const Tree = dynamic(() => import('react-d3-tree'), {ssr: false})
 import Tree from 'react-d3-tree';
 
 const orgChart = {
